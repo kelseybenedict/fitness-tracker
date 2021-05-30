@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// TODO: fix to connect to db once deployed to heroku
-mongoose.connect("mongodb://localhost/workout", {
+// connecting to mongo database
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -25,5 +25,5 @@ app.use(require(apiRoutes));
 app.use(require(htmlRoutes));
 
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+    console.log(`App running on port ${PORT}!`);
 });
