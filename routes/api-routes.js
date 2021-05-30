@@ -51,4 +51,25 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
         });
 });
 // route for getting workouts in range -- GET
-// route for deleting workouts -- DELETE
+router.get('/api/workouts/range', (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: '$exercises.duration',
+                },
+            },
+        },
+    ])
+    // sorting by last id
+        .sort({ _id: -1 })
+        .limit(7)
+        .then((workouts) => {
+            console.log(workouts);
+            res.json(workouts);
+        })
+        // error handling
+        .catch((err) => {
+            res.json(err);
+        });
+});
