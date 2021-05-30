@@ -36,5 +36,6 @@ router.get('/api/workouts', (req, res) => {
       });
   });
 // route for updating workout by ID -- PUT
+
 // route for getting workouts in range -- GET
 // route for deleting workouts -- DELETE
